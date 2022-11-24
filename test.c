@@ -4,54 +4,52 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-#define SYS_kern_2D_memcpy 449
+#define SYS_kernel_2D_memcpy 451
 
 int main() {
-    float MAT1[4][3] = {{1.0,2.0,3.0},{3.0,4.0,5.0},{5.0,6.0,7.0},{7.0,8.0,9.0}};
-    float MAT2[4][3] = {{1.0,1.0,1.0},{1.0,1.0,1.0},{1.0,1.0,1.0},{1.0,1.0,1.0}};
+    float M1[3][3] = {{5.5,3.4,32.3},{2.5,4.9,21.4},{24.32,6.9,7.4}};
+    float M2[3][3] = {{14.1,11.5,24.1},{14.3,15.1,14.1},{9.1,1.3,4.1}};
 
-    printf("This is the initial matrix1 is:\n");
+    printf("INITIAL MATRIX 1 : \n");
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            printf("%lf ", MAT1[i][j]);
+            printf("%lf ", M1[i][j]);
             }
         printf("\n");
     }
     printf("\n");
 
-    printf("This is the initial matrix2 is:\n");
+    printf("INITIAL MATRIX 2 : \n");
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            printf("%lf ", MAT2[i][j]);
+            printf("%lf ", M2[i][j]);
             }
         printf("\n");
     }
     printf("\n");
 
-    int res = syscall(SYS_kern_2D_memcpy, MAT1, MAT2, 4, 3);
+    int check = syscall(SYS_kernel_2D_memcpy, M2, M1);
 
-    if(res < 0){
-        printf("ERROR! Could not perform system call.");
+    if(check < 0){
+        printf("ERROR: SysCall Failure");
         exit(1);
     }
-
-    printf("This is the final matrix1 is:\n");
-
-    for (int i = 0; i < 4; i++){
+    printf("FINAL MATRIX 1 : \n");
+    for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            printf("%lf ", MAT1[i][j]);
+            printf("%lf ", M1[i][j]);
             }
         printf("\n");
     }
     printf("\n");
 
-    printf("This is the final matrix2 is:\n");
+    printf("FINAL MATRIX 2 : \n");
 
-    for (int i = 0; i < 4; i++){
+    for (int i = 0; i < 3; i++){
         for (int j = 0; j < 3; j++){
-            printf("%lf ", MAT2[i][j]);
+            printf("%lf ", M2[i][j]);
             }
         printf("\n");
     }
